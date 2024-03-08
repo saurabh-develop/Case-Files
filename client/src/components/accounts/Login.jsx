@@ -58,15 +58,27 @@ const Text = styled(Typography)`
   color: #878787;
 `;
 
+const signupInitialValues = {
+  name: "",
+  username: "",
+  password: "",
+};
+
 const Login = () => {
   const imageURL =
     "https://i.ibb.co/7SPyPsT/sherlock-holmes-high-resolution-logo-transparent.png";
 
   const [account, toggleAccount] = useState("login");
+  const [signup, setSignup] = useState(signupInitialValues);
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
   };
+
+  const onInputChange = (e) => {
+    setSignup({ ...signup, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <Container>
@@ -79,8 +91,34 @@ const Login = () => {
             />
             {account === "login" ? (
               <Wrapper>
-                <TextField label="Enter username" variant="standard" />
-                <TextField label="Enter password" variant="standard" />
+                <TextField
+                  label="Enter username"
+                  variant="standard"
+                  sx={{
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "#000",
+                    },
+                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                      "&::after": {
+                        borderBottom: "#000",
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  label="Enter password"
+                  variant="standard"
+                  sx={{
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "#000",
+                    },
+                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                      "&::after": {
+                        borderBottom: "#000",
+                      },
+                    },
+                  }}
+                />
                 <LoginButton variant="contained">Login</LoginButton>
                 <Text style={{ textAlign: "center" }}>OR</Text>
                 <SignupButton onClick={() => toggleSignup()}>
@@ -89,9 +127,55 @@ const Login = () => {
               </Wrapper>
             ) : (
               <Wrapper>
-                <TextField label="Enter Name" variant="standard" />
-                <TextField label="Enter Username" variant="standard" />
-                <TextField label="Enter Password" variant="standard" />
+                <TextField
+                  label="Enter Name"
+                  onChange={(e) => onInputChange(e)}
+                  variant="standard"
+                  name="name"
+                  sx={{
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "#000",
+                    },
+                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                      "&::after": {
+                        borderBottom: "#000",
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  label="Enter Username"
+                  onChange={(e) => onInputChange(e)}
+                  variant="standard"
+                  name="username"
+                  sx={{
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "#000",
+                    },
+                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                      "&::after": {
+                        borderBottom: "#000",
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  label="Enter Password"
+                  onChange={(e) => onInputChange(e)}
+                  variant="standard"
+                  name="password"
+                  sx={{
+                    "& .MuiFormLabel-root.Mui-focused": {
+                      color: "#000",
+                    },
+                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                      "&::after": {
+                        borderBottom: "#000",
+                      },
+                    },
+                  }}
+                />
+
                 <SignupButton>Signup</SignupButton>
                 <Text style={{ textAlign: "center" }}>OR</Text>
                 <LoginButton variant="contained" onClick={() => toggleSignup()}>
