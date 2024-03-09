@@ -15,4 +15,5 @@ export const signupUser = async (request,response) =>{
        return response.status(500).json({msg:'Error while signingup the user'})
     }
 
+    
 };
