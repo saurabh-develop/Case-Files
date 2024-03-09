@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
-import { API } from '../../service/api';
+import { API } from "../../service/api";
 
 const Container = styled(Box)`
   padding: 100px;
@@ -17,8 +17,6 @@ const Component = styled(Box)`
   width: 400px;
   margin: auto;
 `;
-
-
 
 const Image = styled("img")({
   width: 300,
@@ -63,9 +61,12 @@ const Text = styled(Typography)`
   color: #878787;
 `;
 
-const Error = styled(Typography)`
+const Error = styled(Typography)``;
 
-`
+const loginInitialValues = {
+  username: "",
+  password: "",
+};
 
 const signupInitialValues = {
   name: "",
@@ -79,8 +80,8 @@ const Login = () => {
 
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
-  const [error, setError] = useState('');
-
+  const [error, setError] = useState("");
+  const [login, setLogin] = useState(loginInitialValues);
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
@@ -92,17 +93,27 @@ const Login = () => {
 
   const signupUser = async () => {
     let response = await API.userSignup(signup);
-    if(response.isSuccess){
-        setError('');
-        setSignup(signupInitialValues);
-        toggleAccount('login')
-
-    } else{
-        setError('Something went wrong.')
+    if (response.isSuccess) {
+      setError("");
+      setSignup(signupInitialValues);
+      toggleAccount("login");
+    } else {
+      setError("Something went wrong.");
     }
+  };
 
-  }
+  const onValueChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
 
+  const loginUser = async () => {
+    let response = await API.userLogin(login);
+    if (response.isSuccess) {
+      setError("");
+    } else {
+      setError("Something went wrong! Please try again later");
+    }
+  };
 
   return (
     <>
@@ -118,6 +129,9 @@ const Login = () => {
               <Wrapper>
                 <TextField
                   label="Enter username"
+                  onChange={(e) => onValueChange(e)}
+                  name="username"
+                  value={login.username}
                   variant="standard"
                   sx={{
                     "& .MuiFormLabel-root.Mui-focused": {
@@ -132,6 +146,9 @@ const Login = () => {
                 />
                 <TextField
                   label="Enter password"
+                  onChange={(e) => onValueChange(e)}
+                  name="password"
+                  value={login.password}
                   variant="standard"
                   sx={{
                     "& .MuiFormLabel-root.Mui-focused": {
@@ -145,7 +162,9 @@ const Login = () => {
                   }}
                 />
                 {error && <Error>{error}</Error>}
-                <LoginButton variant="contained">Login</LoginButton>
+                <LoginButton variant="contained" onClick={() => loginUser()}>
+                  Login
+                </LoginButton>
                 <Text style={{ textAlign: "center" }}>OR</Text>
                 <SignupButton onClick={() => toggleSignup()}>
                   Create an account
