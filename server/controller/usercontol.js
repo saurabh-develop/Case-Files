@@ -1,22 +1,13 @@
-
-
-export const signupUser2 = async (request,response) =>{
-     try{
-         const user = request.body;
-         const newUser = new UserActivation(user);
-         await newUser.save();
-
-         return response.status(200).json({msg:'signup successfull'})
-     }catch(error){
-        return response.status(500).json({msg:'Error while signingup the user'})
-     }
-
-};
+import bcrypt from 'bcrypt';
+import User from '../model/user.js';
 
 export const signupUser = async (request,response) =>{
     try{
-        const user = request.body;
-        const newUser = new UserActivation(user);
+        const salt = await bcrypt.genSalt() ;
+        const hashedPassword = await bcrypt.hash(request.body.password, salt);
+         
+        const user = { username : request.body.username, name: request.body.name, password: hashedPassword };
+        const newUser = new User(user);
         await newUser.save();
 
         return response.status(200).json({msg:'signup successfull'})
@@ -24,4 +15,5 @@ export const signupUser = async (request,response) =>{
        return response.status(500).json({msg:'Error while signingup the user'})
     }
 
+    
 };
