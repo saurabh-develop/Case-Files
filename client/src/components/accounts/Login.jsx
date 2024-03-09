@@ -18,6 +18,8 @@ const Component = styled(Box)`
   margin: auto;
 `;
 
+
+
 const Image = styled("img")({
   width: 300,
   display: "flex",
