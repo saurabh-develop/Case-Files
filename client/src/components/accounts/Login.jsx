@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
+import { API } from "../../service/api";
 
 const Container = styled(Box)`
   padding: 100px;
@@ -8,6 +9,8 @@ const Container = styled(Box)`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 41% 96%;
+  display: flex;
+  margin: auto;
 `;
 
 const Component = styled(Box)`
@@ -78,6 +81,8 @@ const Login = () => {
   const onInputChange = (e) => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
   };
+
+  
 
   return (
     <>
