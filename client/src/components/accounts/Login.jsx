@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
-import { API } from "../../service/api";
+import { API } from '../../service/api';
 
 const Container = styled(Box)`
   padding: 100px;
@@ -61,6 +61,10 @@ const Text = styled(Typography)`
   color: #878787;
 `;
 
+const Error = styled(Typography)`
+
+`
+
 const signupInitialValues = {
   name: "",
   username: "",
@@ -73,6 +77,8 @@ const Login = () => {
 
   const [account, toggleAccount] = useState("login");
   const [signup, setSignup] = useState(signupInitialValues);
+  const [error, setError] = useState('');
+
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
@@ -82,7 +88,19 @@ const Login = () => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
   };
 
-  
+  const signupUser = async () => {
+    let response = await API.userSignup(signup);
+    if(response.isSuccess){
+        setError('');
+        setSignup(signupInitialValues);
+        toggleAccount('login')
+
+    } else{
+        setError('Something went wrong.')
+    }
+
+  }
+
 
   return (
     <>
@@ -124,6 +142,7 @@ const Login = () => {
                     },
                   }}
                 />
+                {error && <Error>{error}</Error>}
                 <LoginButton variant="contained">Login</LoginButton>
                 <Text style={{ textAlign: "center" }}>OR</Text>
                 <SignupButton onClick={() => toggleSignup()}>
@@ -180,8 +199,9 @@ const Login = () => {
                     },
                   }}
                 />
+                {error && <Error>{error}</Error>}
 
-                <SignupButton>Signup</SignupButton>
+                <SignupButton onClick={() => signupUser()}>Signup</SignupButton>
                 <Text style={{ textAlign: "center" }}>OR</Text>
                 <LoginButton variant="contained" onClick={() => toggleSignup()}>
                   Already have an account
