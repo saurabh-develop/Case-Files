@@ -1,7 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
 import { API } from "../../service/api";
+import { DataContext } from "../../context/DataProvider";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled(Box)`
   padding: 100px;
@@ -74,14 +76,17 @@ const signupInitialValues = {
   password: "",
 };
 
-const Login = () => {
-  const imageURL =
-    "https://i.ibb.co/7SPyPsT/sherlock-holmes-high-resolution-logo-transparent.png";
-
-  const [account, toggleAccount] = useState("login");
+const Login = ({ isUserAuthenticated }) => {
+  const [login, setLogin] = useState(loginInitialValues);
   const [signup, setSignup] = useState(signupInitialValues);
   const [error, setError] = useState("");
-  const [login, setLogin] = useState(loginInitialValues);
+  const [account, toggleAccount] = useState("login");
+
+  const navigate = useNavigate();
+  const { setAccount } = useContext(DataContext);
+
+  const imageURL =
+    "https://i.ibb.co/7SPyPsT/sherlock-holmes-high-resolution-logo-transparent.png";
 
   const toggleSignup = () => {
     account === "signup" ? toggleAccount("login") : toggleAccount("signup");
@@ -108,10 +113,30 @@ const Login = () => {
 
   const loginUser = async () => {
     let response = await API.userLogin(login);
+
+    console.log(response);
     if (response.isSuccess) {
       setError("");
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+
+      setAccount({
+        name: response.data.name,
+        username: response.data.username,
+      });
+      isUserAuthenticated(true);
+      setLogin(loginInitialValues);
+
+      navigate("/");
     } else {
       setError("Something went wrong! Please try again later");
+      setLogin(loginInitialValues);
     }
   };
 
@@ -154,7 +179,7 @@ const Login = () => {
                     "& .MuiFormLabel-root.Mui-focused": {
                       color: "#000",
                     },
-                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                    "& .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
                       "&::after": {
                         borderBottom: "#000",
                       },
@@ -181,7 +206,7 @@ const Login = () => {
                     "& .MuiFormLabel-root.Mui-focused": {
                       color: "#000",
                     },
-                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                    "& .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
                       "&::after": {
                         borderBottom: "#000",
                       },
@@ -197,7 +222,7 @@ const Login = () => {
                     "& .MuiFormLabel-root.Mui-focused": {
                       color: "#000",
                     },
-                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                    "& .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
                       "&::after": {
                         borderBottom: "#000",
                       },
@@ -213,7 +238,7 @@ const Login = () => {
                     "& .MuiFormLabel-root.Mui-focused": {
                       color: "#000",
                     },
-                    "&  .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
+                    "& .css-1eed5fa-MuiInputBase-root-MuiInput-root": {
                       "&::after": {
                         borderBottom: "#000",
                       },
