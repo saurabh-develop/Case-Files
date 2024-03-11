@@ -10,6 +10,7 @@ import {
 import { AddCircle as Add } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
+import { API } from "../../service/api";
 
 const Container = styled(Box)`
   margin-top: 90px;
@@ -64,21 +65,22 @@ const CreatePost = () => {
 
   const location = useLocation();
 
+  const url = post.picture ? post.picture : "createpost_image1.jpg";
+
   useEffect(() => {
-    const getImage = () => {
+    const getImage = async () => {
       if (file) {
         const data = new FormData();
         data.append("name", file.name);
         data.append("file", file);
 
-        // API Call
-        post.picture = "";
+        const response = await API.uploadFile(data);
+        post.picture = response.data;
       }
     };
-
-    post.categories = location.search?.split("=")[1] || All;
-    post.username = account.username;
     getImage();
+    post.categories = location.search?.split("=")[1] || "All";
+    post.username = account.username;
   }, [file]);
 
   const onHandleChange = () => {
@@ -88,7 +90,7 @@ const CreatePost = () => {
   return (
     <>
       <Container>
-        <Image src="createpost_image1.jpg" />
+        <Image src={url} />
 
         <StyledFormControl>
           <label htmlFor="fileInput">
