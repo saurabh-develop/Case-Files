@@ -8,7 +8,7 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import { AddCircle as Add } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
+import { useLocation ,useNavigate} from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
 import { API } from "../../service/api";
 
@@ -57,9 +57,11 @@ const initialPost = {
   createdDate: new Date(),
 };
 
+
 const CreatePost = () => {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
+  const navigate = useNavigate();
 
   const { account } = useContext(DataContext);
 
@@ -83,14 +85,20 @@ const CreatePost = () => {
     post.username = account.username;
   }, [file]);
 
-  const onHandleChange = () => {
+  const onHandleChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
 
+  const savePost = async() =>{
+    let response = await API.createPost(post);
+    if( response.isSuccess){
+      navigate('/');
+    }
+  }
+
   return (
-    <>
       <Container>
-        <Image src={url} />
+        <Image src={url} alt="post" />
 
         <StyledFormControl>
           <label htmlFor="fileInput">
@@ -104,11 +112,11 @@ const CreatePost = () => {
           />
 
           <InputTextField
-            placeholder="Title"
             onChange={(e) => onHandleChange(e)}
             name="title"
+            placeholder="Title"
           />
-          <Button variant="contained">Publish</Button>
+          <Button variant="contained" onClick={() => savePost()}>Publish</Button>
         </StyledFormControl>
         <TextArea
           minRows={5}
@@ -117,7 +125,7 @@ const CreatePost = () => {
           name="description"
         />
       </Container>
-    </>
+    
   );
 };
 
