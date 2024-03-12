@@ -7,8 +7,8 @@ import {
   InputBase,
   TextareaAutosize,
 } from "@mui/material";
-import { AddCircle as Add } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
+import { AddCircle as Add, LocationOff } from "@mui/icons-material";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
 import { API } from "../../service/api";
 
@@ -71,6 +71,7 @@ const initialPost = {
 const CreatePost = () => {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
+  const navigate = useNavigate();
 
   const { account } = useContext(DataContext);
 
@@ -94,15 +95,22 @@ const CreatePost = () => {
     post.username = account.username;
   }, [file]);
 
-  const onHandleChange = () => {
+  const onHandleChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
+  };
+
+  const savePost = async () => {
+    let response = await API.createPost(post);
+    if (response.isSuccess) {
+      navigate("/");
+    }
   };
 
   return (
     <>
       <Wrapper>
         <Container>
-          <Image src={url} />
+          <Image src={url} alt="post" />
 
           <StyledFormControl>
             <label htmlFor="fileInput">
