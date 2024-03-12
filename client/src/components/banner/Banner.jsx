@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Typography, styled } from "@mui/material";
 
 const Image = styled(Box)`
-  background-image: url("banner_image.jpeg");
+  background: url("banner_image.jpeg") center/100%;
   background-repeat: no-repeat;
   width: 100%;
-  height: 50vh;
+  height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;

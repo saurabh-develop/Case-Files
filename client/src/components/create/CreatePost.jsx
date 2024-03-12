@@ -12,15 +12,24 @@ import { useLocation } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
 import { API } from "../../service/api";
 
+const Wrapper = styled(Box)`
+  margin: 0;
+  padding: 0;
+  background-color: #1b1c1e;
+`;
+
 const Container = styled(Box)`
-  margin-top: 90px;
-  margin: 90px 100px 0 100px;
+  margin: 0px 100px 0px 100px;
   display: flex;
   flex-direction: column;
+  .css-1dhrzyv {
+    background-color: #101012;
+    color: #fff;
+  }
 `;
 
 const Image = styled("img")({
-  margin: "auto",
+  marginTop: "90px",
   height: "50vh",
   width: "100%",
   objectFit: "cover",
@@ -36,6 +45,8 @@ const InputTextField = styled(InputBase)`
   flex: 1;
   margin: 0 20px;
   font-size: 20px;
+  
+  }
 `;
 
 const TextArea = styled(TextareaAutosize)`
@@ -89,34 +100,40 @@ const CreatePost = () => {
 
   return (
     <>
-      <Container>
-        <Image src={url} />
+      <Wrapper>
+        <Container>
+          <Image src={url} />
 
-        <StyledFormControl>
-          <label htmlFor="fileInput">
-            <Add fontSize="large" color="action" />
-          </label>
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            onChange={(e) => setFile(e.target.files[0])}
-          />
+          <StyledFormControl>
+            <label htmlFor="fileInput">
+              <Add
+                fontSize="large"
+                style={{ color: "#fff", cursor: "pointer" }}
+              />
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
 
-          <InputTextField
-            placeholder="Title"
+            <InputTextField
+              placeholder="Title"
+              onChange={(e) => onHandleChange(e)}
+              name="title"
+              style={{ color: "#fff" }}
+            />
+            <Button variant="contained">Publish</Button>
+          </StyledFormControl>
+          <TextArea
+            minRows={5}
+            placeholder="Tell your story..."
             onChange={(e) => onHandleChange(e)}
-            name="title"
+            name="description"
           />
-          <Button variant="contained">Publish</Button>
-        </StyledFormControl>
-        <TextArea
-          minRows={5}
-          placeholder="Tell your story..."
-          onChange={(e) => onHandleChange(e)}
-          name="description"
-        />
-      </Container>
+        </Container>
+      </Wrapper>
     </>
   );
 };

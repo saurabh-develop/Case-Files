@@ -3,15 +3,15 @@ import { AppBar, Toolbar, Typography, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Component = styled(AppBar)`
-  background: #fff;
-  color: #000;
+  background: transparent;
+  display: flex;
 `;
 
 const Container = styled(Toolbar)`
   justify-content: center;
   & > a {
-    padding: 20px;
-    color: #000;
+    padding: 30px 70px 30px 70px;
+    color: #fff;
     text-decoration: none;
   }
 `;

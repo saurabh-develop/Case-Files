@@ -12,22 +12,20 @@ import styled from "@emotion/styled";
 import { Link, useSearchParams } from "react-router-dom";
 
 const StyledTable = styled(Table)`
-  border: 1px solid rgba(224, 224, 224, 1);
+  border: 0px 0px 1px 0px solid rgba(224, 224, 224, 1);
 `;
 
 const StyledButton = styled(Button)`
   margin: 20px;
   width: 85%;
-  background: #000;
-  color: #fff;
-  &:hover {
-    background: #777;
-    color: #000;
-  }
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: inherit;
+  color: #fff;
+
+  &:hover {
+    color: #1976d2;
+  }
 `;
 
 const Categories = () => {
@@ -40,7 +38,7 @@ const Categories = () => {
         to={`/create?category=${category || ""}`}
         style={{ textDecoration: "none" }}
       >
-        <StyledButton>Create Blog</StyledButton>
+        <StyledButton variant="contained">Create Blog</StyledButton>
       </StyledLink>
 
       <StyledTable>

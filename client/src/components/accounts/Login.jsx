@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useContext } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
 import { API } from "../../service/api";
@@ -117,11 +117,19 @@ const Login = ({ isUserAuthenticated }) => {
     console.log(response);
     if (response.isSuccess) {
       setError("");
-      sessionStorage.setItem(
+      // sessionStorage.setItem(
+      //   "accessToken",
+      //   `Bearer ${response.data.accessToken}`
+      // );
+      // sessionStorage.setItem(
+      //   "refreshToken",
+      //   `Bearer ${response.data.refreshToken}`
+      // );
+      localStorage.setItem(
         "accessToken",
         `Bearer ${response.data.accessToken}`
       );
-      sessionStorage.setItem(
+      localStorage.setItem(
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
       );
@@ -130,6 +138,7 @@ const Login = ({ isUserAuthenticated }) => {
         name: response.data.name,
         username: response.data.username,
       });
+
       isUserAuthenticated(true);
       setLogin(loginInitialValues);
 
@@ -139,6 +148,14 @@ const Login = ({ isUserAuthenticated }) => {
       setLogin(loginInitialValues);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      isUserAuthenticated(true);
+      setLogin(loginInitialValues);
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
