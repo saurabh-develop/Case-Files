@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../banner/Banner";
 import Categories from "./Categories";
 import { styled, Box, Grid, Container } from "@mui/material";
+import Post from "./post/Post";
 
 const Wrapper = styled(Box)`
   background-color: #1b1c1e;
@@ -19,7 +20,7 @@ const Home = () => {
               <Categories />
             </Grid>
             <Grid container item xs={12} sm={10} lg={10}>
-              POST
+              <Post />
             </Grid>
           </Grid>
         </BannerContainer>

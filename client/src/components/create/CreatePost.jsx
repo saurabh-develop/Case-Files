@@ -22,10 +22,6 @@ const Container = styled(Box)`
   margin: 0px 100px 0px 100px;
   display: flex;
   flex-direction: column;
-  .css-1dhrzyv {
-    background-color: #101012;
-    color: #fff;
-  }
 `;
 
 const Image = styled("img")({
@@ -52,10 +48,18 @@ const InputTextField = styled(InputBase)`
 const TextArea = styled(TextareaAutosize)`
   width: 100%;
   margin-top: 25px;
+  margin-bottom: 25px;
   font-size: 16px;
   border: none;
+  padding: 10px;
+  background-color: #101012;
+  color: #fff;
+  outline: none;
   &:focus-visible {
     outline: none;
+    padding: 10px;
+    background-color: #101012;
+    color: #fff;
   }
 `;
 
