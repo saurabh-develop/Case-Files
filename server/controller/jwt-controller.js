@@ -6,7 +6,7 @@ dotenv.config()
 
 export const authenticateToken = (request,response,next)=>{
     const authHeader = request.headers['authorization'];
-    const token = authHeader && authHeader.split('')[1];
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null){
         return response.status(401).json({msg:'token is missing'});
