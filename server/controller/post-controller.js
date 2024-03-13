@@ -15,7 +15,7 @@ export const createPost = async (request, response) => {
 
 export const getAllPosts = async (request, response) => {
   let category = request.query.category;
-  let posts;
+  let posts = await Post.find({});
   try {
     if (category) {
       posts = await Post.find({ categories: category });
