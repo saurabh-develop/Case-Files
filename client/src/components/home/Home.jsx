@@ -2,11 +2,9 @@ import React from "react";
 import Banner from "../banner/Banner";
 import Categories from "./Categories";
 import { styled, Box, Grid } from "@mui/material";
-import {Posts} from "./post/Posts";
+import { Posts } from "./post/Posts";
 
-const BannerContainer = styled(Box)`
-  padding-top: 64px;
-`;
+const BannerContainer = styled(Box)``;
 
 const Home = () => {
   return (
@@ -18,7 +16,7 @@ const Home = () => {
             <Categories />
           </Grid>
           <Grid container item xs={12} sm={10} lg={10}>
-            <Posts/>
+            <Posts style={{ padding: "10px" }} />
           </Grid>
         </Grid>
       </BannerContainer>
