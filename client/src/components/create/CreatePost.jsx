@@ -106,7 +106,7 @@ const CreatePost = () => {
   const savePost = async () => {
     let response = await API.createPost(post);
     if (response.isSuccess) {
-      navigate("/");
+      navigate(`/`);
     }
   };
 
