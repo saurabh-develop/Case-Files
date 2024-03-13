@@ -109,4 +109,4 @@ const DetailView = () => {
     )
 }
 
-export default DetailView; 
+export default DetailView;
