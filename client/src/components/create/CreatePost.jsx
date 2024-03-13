@@ -18,11 +18,13 @@ const Wrapper = styled(Box)`
   background-color: #1b1c1e;
 `;
 
-const Container = styled(Box)`
-  margin: 0px 100px 0px 100px;
-  display: flex;
-  flex-direction: column;
-`;
+const Container = styled(Box)(({theme})=>({
+  margin:' 50px 100px',
+  [theme.breakpoints.down('md')]:{
+      margin:0
+  }
+
+}));
 
 const Image = styled("img")({
   marginTop: "90px",

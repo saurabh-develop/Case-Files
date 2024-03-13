@@ -5,10 +5,19 @@ import { API } from '../../service/api';
 import { Edit, Delete } from '@mui/icons-material';
 import { DataContext } from '../../context/DataProvider';
 
+//components
+import Comments from './comments/Comments';
 
-const Container = styled(Box)`
-    margin: 50px 100px;
-`
+
+const Container = styled(Box)(({theme})=>({
+    margin:' 50px 100px',
+    [theme.breakpoints.down('md')]:{
+        margin:0
+    }
+
+}));
+   
+
 
 const Image = styled('img')
     ({
@@ -105,6 +114,7 @@ const DetailView = () => {
             </Author>
 
             <Description>{post.description}</Description>
+            <Comments post={post}/>
         </Container>
     )
 }
