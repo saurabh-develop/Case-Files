@@ -1,30 +1,27 @@
 import React from "react";
 import Banner from "../banner/Banner";
 import Categories from "./Categories";
-import { styled, Box, Grid, Container } from "@mui/material";
-import Post from "./post/Post";
+import { styled, Box, Grid } from "@mui/material";
+import {Posts} from "./post/Posts";
 
-const Wrapper = styled(Box)`
-  background-color: #1b1c1e;
+const BannerContainer = styled(Box)`
+  padding-top: 64px;
 `;
-const BannerContainer = styled(Box)``;
 
 const Home = () => {
   return (
     <>
-      <Wrapper>
-        <BannerContainer>
-          <Banner />
-          <Grid container>
-            <Grid item lg={2} sm={2} xs={12}>
-              <Categories />
-            </Grid>
-            <Grid container item xs={12} sm={10} lg={10}>
-              <Post />
-            </Grid>
+      <BannerContainer>
+        <Banner />
+        <Grid container>
+          <Grid item lg={2} sm={2} xs={12}>
+            <Categories />
           </Grid>
-        </BannerContainer>
-      </Wrapper>
+          <Grid container item xs={12} sm={10} lg={10}>
+            <Posts/>
+          </Grid>
+        </Grid>
+      </BannerContainer>
     </>
   );
 };

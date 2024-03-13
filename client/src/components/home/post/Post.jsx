@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { API } from "../../../service/api";
 
-const Post = () => {
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      let response = await API.getAllPosts();
-      if (response.isSuccess) {
-        setPosts(response.data);
-      }
-    };
-    fetchData();
-  }, []);
-  return (
-    <>
-      {posts && posts.length > 0 ? (
-        posts.map((post) => <div>Hello</div>)
-      ) : (
-        <div>No data available to display</div>
-      )}
-    </>
-  );
-};
+import { Box,Typography,styled } from "@mui/material";
 
+const Container = styled(Box)`
+    border:1px solid #d3cede;
+    border-radius: 10px;
+    margin:10px;
+`
+
+const Image = styled('img')({
+    width:'100%'
+})
+
+
+const Post = ({post}) =>{
+    return(
+        <Container>
+         <Image src={post.picture} alt-="blog"/>
+         <Typography>{post.categories}</Typography>
+         <Typography>{post.title}</Typography>
+         <Typography>{post.username}</Typography>
+         <Typography>{post.description}</Typography>
+        </Container>
+    )
+}
 export default Post;
