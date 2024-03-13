@@ -117,14 +117,14 @@ const Login = ({ isUserAuthenticated }) => {
     console.log(response);
     if (response.isSuccess) {
       setError("");
-      // sessionStorage.setItem(
-      //   "accessToken",
-      //   `Bearer ${response.data.accessToken}`
-      // );
-      // sessionStorage.setItem(
-      //   "refreshToken",
-      //   `Bearer ${response.data.refreshToken}`
-      // );
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
       localStorage.setItem(
         "accessToken",
         `Bearer ${response.data.accessToken}`
