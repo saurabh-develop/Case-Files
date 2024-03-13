@@ -20,7 +20,7 @@ const PostSchema = mongoose.Schema({
     },
     categories: {
         type: Array,
-        required: false   
+        required: true  
     },
     createdDate: {
         type: Date

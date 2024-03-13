@@ -114,7 +114,6 @@ const Login = ({ isUserAuthenticated }) => {
   const loginUser = async () => {
     let response = await API.userLogin(login);
 
-    console.log(response);
     if (response.isSuccess) {
       setError("");
       sessionStorage.setItem(
