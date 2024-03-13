@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from '@mui/material';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate ,useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { API } from '../../service/api';
 import { Edit, Delete } from '@mui/icons-material';
@@ -82,9 +82,10 @@ const DetailView = () => {
     }, [])
 
     const deleteBlog = async () =>{
+        const navigate = useNavigate();
         let response = await API.deletePost(post._id);
         if(response.isSuccess){
-            Navigate('/');
+            navigate('/');
         }
     }
     return (
