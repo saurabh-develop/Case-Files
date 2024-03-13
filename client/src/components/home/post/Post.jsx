@@ -1,6 +1,8 @@
 
 import { Box,Typography,styled } from "@mui/material";
 
+import {addElipses} from '../../../utils/common-utils'
+
 const Container = styled(Box)`
     border:1px solid #d3cede;
     border-radius: 10px;
@@ -10,6 +12,15 @@ const Container = styled(Box)`
 const Image = styled('img')({
     width:'100%'
 })
+const Heading = styled(Typography)`
+    font-size: 18px;
+    font-weight: 600
+`;
+
+const Details = styled(Typography)`
+    font-size: 14px;
+    word-break: break-word;
+`;
 
 
 const Post = ({post}) =>{
@@ -17,9 +28,9 @@ const Post = ({post}) =>{
         <Container>
          <Image src={post.picture} alt-="blog"/>
          <Typography>{post.categories}</Typography>
-         <Typography>{post.title}</Typography>
+         <Heading>{addElipses(post.title)}</Heading>
          <Typography>{post.username}</Typography>
-         <Typography>{post.description}</Typography>
+         <Details>{addElipses(post.description,100)}</Details>
         </Container>
     )
 }

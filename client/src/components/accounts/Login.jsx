@@ -150,7 +150,7 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (sessionStorage.getItem("accessToken")) {
       isUserAuthenticated(true);
       setLogin(loginInitialValues);
       navigate("/");
