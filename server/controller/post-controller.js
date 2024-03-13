@@ -1,6 +1,7 @@
 import { response } from "express";
 import Post from "../model/post.js";
 
+
 export const createPost = async (request, response) => {
   try {
     const post = await new Post(request.body);
@@ -58,9 +59,8 @@ export const deletePost = async(request, response) => {
         const post = await Post.findById(request.params.id);
         if(!post){
           return response.status(404).json({ msg: 'post not found'});
-
         }
-        await post.delete();
+        await post.deleteOne();
         return response.status(200).json({ msg: 'post deleted successfully'})
     } catch (error) {
         return response.status(500).json({ error: error.message})
