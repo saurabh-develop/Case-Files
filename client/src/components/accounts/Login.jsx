@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useContext } from "react";
 import { Box, Button, TextField, Typography, styled } from "@mui/material";
 import { API } from "../../service/api";
@@ -114,7 +114,6 @@ const Login = ({ isUserAuthenticated }) => {
   const loginUser = async () => {
     let response = await API.userLogin(login);
 
-    console.log(response);
     if (response.isSuccess) {
       setError("");
       sessionStorage.setItem(
@@ -125,11 +124,20 @@ const Login = ({ isUserAuthenticated }) => {
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
       );
+      localStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      localStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
 
       setAccount({
         name: response.data.name,
         username: response.data.username,
       });
+
       isUserAuthenticated(true);
       setLogin(loginInitialValues);
 
@@ -139,6 +147,14 @@ const Login = ({ isUserAuthenticated }) => {
       setLogin(loginInitialValues);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      isUserAuthenticated(true);
+      setLogin(loginInitialValues);
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
