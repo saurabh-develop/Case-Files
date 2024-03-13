@@ -136,7 +136,7 @@ const CreatePost = () => {
               name="title"
               style={{ color: "#fff" }}
             />
-            <Button variant="contained">Publish</Button>
+            <Button variant="contained" onClick={() => savePost()}>Publish</Button>
           </StyledFormControl>
           <TextArea
             minRows={5}
