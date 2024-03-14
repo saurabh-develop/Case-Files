@@ -5,6 +5,7 @@ import { Box, TextareaAutosize, Button, styled } from '@mui/material';
 import { DataContext } from '../../../context/DataProvider';
 
 import { API } from '../../../service/api';
+import {useNavigate} from 'react-router-dom';
 
 //components
 import Comment from './Comment';
@@ -65,6 +66,27 @@ const Comments = ({ post }) => {
         await API.newComment(comment);
         setComment(initialValue)
         setToggle(prevState => !prevState);
+        const navigate = useNavigate();
+
+        navigate("/");
+    }
+
+    
+
+    const filterComments = (comments) => {
+        
+        const filteredComments = comments.filter(comment => {
+            
+            // Implement your filtering logic here
+            const forbiddenWords = ['mc', 'fuck']; // List of forbidden words
+            return !forbiddenWords.some(word => comment.comments.toLowerCase().includes(word));
+        });
+        
+        return filteredComments;
+
+        
+
+        
     }
     
     return (
@@ -86,11 +108,9 @@ const Comments = ({ post }) => {
                 >Post</Button>             
             </Container>
             <Box>
-                {
-                    comments && comments.length > 0 && comments.map(comment => (
-                        <Comment comment={comment} setToggle={setToggle} />
-                    ))
-                }
+                {filterComments(comments).map(comment => (
+                    <Comment key={comment._id} comment={comment} setToggle={setToggle} />
+                ))}
             </Box>
         </Box>
     )
