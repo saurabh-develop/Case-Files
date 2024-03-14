@@ -92,7 +92,7 @@ const CreatePost = () => {
         data.append("file", file);
 
         const response = await uploadFile(data);
-        post.picture = response.data;
+        post.picture = response;
       }
     };
     getImage();
