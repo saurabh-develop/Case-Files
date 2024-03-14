@@ -4,7 +4,7 @@ import { styled, Box, TextareaAutosize, Button, InputBase, FormControl  } from '
 import { AddCircle as Add } from '@mui/icons-material';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
-import { API } from '../../service/api';
+import { API , uploadFile } from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -82,8 +82,9 @@ const Update = () => {
                 data.append("name", file.name);
                 data.append("file", file);
                 
-                const response = await API.uploadFile(data);
-                post.picture = response.data;
+                const response = await uploadFile(data);
+                
+                post.picture = response;
             }
         }
         getImage();

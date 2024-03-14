@@ -52,6 +52,9 @@ const processResponse = (response) => {
     }
 }
 
+
+
+
 const processError = (error) => {
     if (error.response) {
         //responded with code other than 200
@@ -77,6 +80,16 @@ const processError = (error) => {
             msg: API_Defaults.networkError,
             code: ""
         }
+    }
+}
+
+
+export const uploadFile = async (data) => {
+    try {
+        const response = await axios.post(`${API_URL}/file/upload`, data);
+        return response.data;
+    } catch (error) {
+        console.log('Error while calling the API ', error.message);
     }
 }
 

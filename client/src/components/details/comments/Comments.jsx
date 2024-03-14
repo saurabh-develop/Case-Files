@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Box, TextareaAutosize, Button, styled } from "@mui/material";
 
 import { DataContext } from "../../../context/DataProvider";
+import { useNavigate } from "react-router-dom";
 
 import { API } from "../../../service/api";
 
@@ -65,10 +66,23 @@ const Comments = ({ post }) => {
     });
   };
 
+  const filterComments = (comments) => {
+    const filteredComments = comments.filter((comment) => {
+      const forbiddenWords = ["mc", "fuck"]; // List of forbidden words
+      return !forbiddenWords.some((word) =>
+        comment.comments.toLowerCase().includes(word)
+      );
+    });
+
+    return filteredComments;
+  };
   const addComment = async () => {
     await API.newComment(comment);
     setComment(initialValue);
     setToggle((prevState) => !prevState);
+    const navigate = useNavigate();
+
+    navigate("/");
   };
 
   return (
@@ -91,12 +105,10 @@ const Comments = ({ post }) => {
           Post
         </Button>
       </Container>
-      <Box styled={{ maginBottom: "10px" }}>
-        {comments &&
-          comments.length > 0 &&
-          comments.map((comment) => (
-            <Comment comment={comment} setToggle={setToggle} />
-          ))}
+      <Box>
+        {filterComments(comments).map((comment) => (
+          <Comment key={comment._id} comment={comment} setToggle={setToggle} />
+        ))}
       </Box>
     </Box>
   );

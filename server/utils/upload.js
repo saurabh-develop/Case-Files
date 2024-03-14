@@ -9,15 +9,15 @@ const password = process.env.DB_PASSWORD;
 
 const storage = new GridFsStorage({
     url: `mongodb+srv://${username}:${password}@blog-app.l2nf7lo.mongodb.net/?retryWrites=true&w=majority&appName=blog-app`,
-    options: {  },
+    options: {},
     file: (request, file) => {
         const match = ["image/png", "image/jpg"];
 
-        if(match.indexOf(file.memeType) === -1) 
+        if(match.indexOf(file.mimeType) === -1) 
             return`${Date.now()}-blog-${file.originalname}`;
 
         return {
-            bucketName: "photos",
+            bucketName: "files",
             filename: `${Date.now()}-blog-${file.originalname}`
         }
     }
