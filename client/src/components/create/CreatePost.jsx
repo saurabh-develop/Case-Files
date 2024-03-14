@@ -35,13 +35,21 @@ const StyledFormControl = styled(FormControl)`
   margin-top: 10px;
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 const InputTextField = styled(InputBase)`
   flex: 1;
   margin: 0 20px;
   font-size: 20px;
-  
+  border-bottom: 1px solid #101010;
+  padding: 0 10px;
+  border-radius: 5px;
+  @media only screen and (max-width: 600px) {
+    margin: 10px 20px;
   }
 `;
 
@@ -121,6 +129,7 @@ const CreatePost = () => {
               <Add
                 fontSize="large"
                 style={{ color: "#fff", cursor: "pointer" }}
+                className="addIcon"
               />
             </label>
             <input
@@ -136,7 +145,9 @@ const CreatePost = () => {
               name="title"
               style={{ color: "#fff" }}
             />
-            <Button variant="contained" onClick={() => savePost()}>Publish</Button>
+            <Button variant="contained" onClick={() => savePost()}>
+              Publish
+            </Button>
           </StyledFormControl>
           <TextArea
             minRows={5}

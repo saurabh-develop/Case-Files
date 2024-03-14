@@ -13,6 +13,16 @@ const Container = styled(Box)`
     padding: 0 5px 5px 5px;
     color: #fff;
   }
+  @media only screen and (max-width: 600px) and (min-width: 400px) {
+    img {
+      height: 65%;
+    }
+  }
+  @media only screen and (min-width: 400px) {
+    img {
+      height: 65%;
+    }
+  }
 `;
 
 const Text = styled(Typography)`
@@ -43,7 +53,7 @@ const Post = ({ post }) => {
     <Container>
       <Image src={url} alt-="blog" />
       <Text>{post.categories}</Text>
-      <Heading>{addElipsis(post.title, 20)}</Heading>
+      <Heading>{addElipsis(post.title, 10)}</Heading>
       <Text>{post.username}</Text>
       <Details>{addElipsis(post.description, 100)}</Details>
     </Container>

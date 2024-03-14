@@ -10,8 +10,30 @@ const Image = styled(Box)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  @media only screen and (max-width: 860px) {
+    background-size: 100% 75%;
+  }
 `;
 
+const Head = styled(Box)`
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
+  @media only screen and (max-width: 860px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
+const SubHead = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  @media only screen and (max-width: 860px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
 const Heading = styled(Typography)`
   font-size: 60px;
   color: #fff;
@@ -26,8 +48,15 @@ const Banner = () => {
   return (
     <>
       <Image>
-        <Heading>Sherlock's Sleuthing Dispatch</Heading>
-        <SubHeading>Unraveling Mysteries Through Blogging</SubHeading>
+        <Head>
+          <Heading>Sherlock's </Heading>
+          <Heading>Sleuthing </Heading>
+          <Heading>Dispatch</Heading>
+        </Head>
+        <SubHead>
+          <SubHeading>Unraveling Mysteries</SubHeading>
+          <SubHeading> Through Blogging</SubHeading>
+        </SubHead>
       </Image>
     </>
   );
