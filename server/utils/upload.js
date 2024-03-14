@@ -9,7 +9,7 @@ const password = process.env.DB_PASSWORD;
 
 const storage = new GridFsStorage({
     url: `mongodb+srv://${username}:${password}@blog-app.l2nf7lo.mongodb.net/?retryWrites=true&w=majority&appName=blog-app`,
-    options: { useNewUrlParser: true, useUnifiedTopology: true },
+    options: {},
     file: (request, file) => {
         const match = ["image/png", "image/jpg"];
 
