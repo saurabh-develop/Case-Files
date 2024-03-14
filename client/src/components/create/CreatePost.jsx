@@ -10,7 +10,8 @@ import {
 import { AddCircle as Add, LocationOff } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
-import { API } from "../../service/api";
+import { API, uploadFile } from "../../service/api";
+
 
 const Wrapper = styled(Box)`
   margin: 0;
@@ -90,7 +91,7 @@ const CreatePost = () => {
         data.append("name", file.name);
         data.append("file", file);
 
-        const response = await API.uploadFile(data);
+        const response = await uploadFile(data);
         post.picture = response.data;
       }
     };
