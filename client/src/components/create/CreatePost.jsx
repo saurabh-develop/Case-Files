@@ -93,7 +93,6 @@ const CreatePost = () => {
   const [file, setFile] = useState("");
   const navigate = useNavigate();
   const editor = useRef(null);
-  const [content, setContent] = useState("");
 
   const { account } = useContext(DataContext);
 
