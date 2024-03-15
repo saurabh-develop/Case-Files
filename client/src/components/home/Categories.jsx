@@ -13,6 +13,7 @@ import { Link, useSearchParams } from "react-router-dom";
 
 const StyledTable = styled(Table)`
   border: 0px 0px 1px 0px solid rgba(224, 224, 224, 1);
+  margin: 0px 5px;
 `;
 
 const StyledButton = styled(Button)`
@@ -22,6 +23,8 @@ const StyledButton = styled(Button)`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #fff;
+
+  margin: auto;
 
   &:hover {
     color: #1976d2;
@@ -44,7 +47,7 @@ const Categories = () => {
       <StyledTable>
         <TableHead>
           <TableRow>
-            <TableCell>
+            <TableCell style={{ display: "flex" }}>
               <StyledLink to="/">All Categories</StyledLink>
             </TableCell>
           </TableRow>
@@ -52,7 +55,7 @@ const Categories = () => {
         <TableBody>
           {categories.map((category) => (
             <TableRow key={category.id}>
-              <TableCell>
+              <TableCell style={{ display: "flex" }}>
                 <StyledLink to={`/?category=${category.type}`}>
                   {category.type}
                 </StyledLink>

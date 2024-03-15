@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import styled from "@emotion/styled";
 import {
   Box,
@@ -11,7 +11,7 @@ import { AddCircle as Add, LocationOff } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
 import { API, uploadFile } from "../../service/api";
-
+import JoditEditor from "jodit-react";
 
 const Wrapper = styled(Box)`
   margin: 0;
@@ -23,6 +23,13 @@ const Container = styled(Box)`
   margin: 0px 100px 0px 100px;
   display: flex;
   flex-direction: column;
+  .custom-editor {
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: none;
+    padding: 10px;
+  }
 `;
 
 const Image = styled("img")({
@@ -36,13 +43,21 @@ const StyledFormControl = styled(FormControl)`
   margin-top: 10px;
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 const InputTextField = styled(InputBase)`
   flex: 1;
   margin: 0 20px;
   font-size: 20px;
-  
+  border-bottom: 1px solid #101010;
+  padding: 0 10px;
+  border-radius: 5px;
+  @media only screen and (max-width: 600px) {
+    margin: 10px 20px;
   }
 `;
 
@@ -77,6 +92,8 @@ const CreatePost = () => {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
   const navigate = useNavigate();
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
 
   const { account } = useContext(DataContext);
 
@@ -92,7 +109,8 @@ const CreatePost = () => {
         data.append("file", file);
 
         const response = await uploadFile(data);
-        post.picture = response;
+        setPost((prevPost) => ({ ...prevPost, picture: response }));
+        // post.picture = response;
       }
     };
     getImage();
@@ -101,7 +119,7 @@ const CreatePost = () => {
   }, [file]);
 
   const onHandleChange = (e) => {
-    setPost({ ...post, [e.target.name]: e.target.value });
+    setPost((prevPost) => ({ ...prevPost, [e.target.name]: e.target.value }));
   };
 
   const savePost = async () => {
@@ -122,6 +140,7 @@ const CreatePost = () => {
               <Add
                 fontSize="large"
                 style={{ color: "#fff", cursor: "pointer" }}
+                className="addIcon"
               />
             </label>
             <input
@@ -137,13 +156,24 @@ const CreatePost = () => {
               name="title"
               style={{ color: "#fff" }}
             />
-            <Button variant="contained" onClick={() => savePost()}>Publish</Button>
+            <Button variant="contained" onClick={() => savePost()}>
+              Publish
+            </Button>
           </StyledFormControl>
-          <TextArea
+          {/* <TextArea
             minRows={5}
             placeholder="Tell your story..."
             onChange={(e) => onHandleChange(e)}
             name="description"
+          /> */}
+          <JoditEditor
+            ref={editor}
+            value={post.description}
+            onChange={(newContent) =>
+              setPost((prevPost) => ({ ...prevPost, description: newContent }))
+            }
+            name="description"
+            className="custom-editor"
           />
         </Container>
       </Wrapper>
