@@ -63,6 +63,7 @@ const Post = ({ post }) => {
       <Text>{post.categories}</Text>
       <Heading>{addElipsis(post.title, 10)}</Heading>
       <Text>{post.username}</Text>
+
       <Details>
         {addElipsis(
           <div dangerouslySetInnerHTML={{ __html: post.description }} />,
