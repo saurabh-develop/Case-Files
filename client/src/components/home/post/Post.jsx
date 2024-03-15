@@ -38,6 +38,14 @@ const Heading = styled(Typography)`
 const Details = styled(Typography)`
   font-size: 16px;
   word-break: break-word;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: grey;
+  }
 `;
 
 const Image = styled("img")({
@@ -55,7 +63,12 @@ const Post = ({ post }) => {
       <Text>{post.categories}</Text>
       <Heading>{addElipsis(post.title, 10)}</Heading>
       <Text>{post.username}</Text>
-      <Details>{addElipsis(post.description, 100)}</Details>
+      <Details>
+        {addElipsis(
+          <div dangerouslySetInnerHTML={{ __html: post.description }} />,
+          100
+        )}
+      </Details>
     </Container>
   );
 };

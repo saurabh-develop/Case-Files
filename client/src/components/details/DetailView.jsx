@@ -53,10 +53,18 @@ const PostContent = styled(Box)`
   color: #fff;
   margin-top: 10px;
   padding: 0px 20px;
+  overflow: auto;
   .desc {
     width: 80%;
     height: 50%;
     margin: 20px;
+  }
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: grey;
   }
 `;
 
@@ -130,7 +138,9 @@ const DetailView = () => {
           </Typography>
         </Author>
 
-        <Description className="desc">{post.description}</Description>
+        <Description className="desc">
+          <div dangerouslySetInnerHTML={{ __html: post.description }} />
+        </Description>
       </PostContent>
       <Comments post={post} />
     </Container>
