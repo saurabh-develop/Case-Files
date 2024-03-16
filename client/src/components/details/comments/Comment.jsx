@@ -5,10 +5,20 @@ import { Delete } from "@mui/icons-material";
 import { DataContext } from "../../../context/DataProvider";
 import { API } from "../../../service/api";
 
+const ModeChanger = styled(Box)`
+  .dark {
+    background-color: #101012;
+    color: #fff;
+  }
+  .light {
+    background-color: #dad8c9;
+    color: #333;
+  }
+`;
+
 const Component = styled(Box)`
   margin-top: 30px;
-  background: #101012;
-  color: #fff;
+
   padding: 10px 20px;
 `;
 
@@ -34,7 +44,7 @@ const DeleteIcon = styled(Delete)`
 `;
 
 const Comment = ({ comment, setToggle }) => {
-  const { account } = useContext(DataContext);
+  const { account, darkMode } = useContext(DataContext);
 
   const removeComment = async () => {
     await API.deleteComment(comment._id);
@@ -42,16 +52,18 @@ const Comment = ({ comment, setToggle }) => {
   };
 
   return (
-    <Component>
-      <Container>
-        <Name>{comment.name}</Name>
-        <StyledDate>{new Date(comment.date).toDateString()}</StyledDate>
-        {comment.name === account.username && (
-          <DeleteIcon onClick={() => removeComment()} />
-        )}
-      </Container>
-      <Typography>{comment.comments}</Typography>
-    </Component>
+    <ModeChanger>
+      <Component className={darkMode === true ? "dark" : "light"}>
+        <Container>
+          <Name>{comment.name}</Name>
+          <StyledDate>{new Date(comment.date).toDateString()}</StyledDate>
+          {comment.name === account.username && (
+            <DeleteIcon onClick={() => removeComment()} />
+          )}
+        </Container>
+        <Typography>{comment.comments}</Typography>
+      </Component>
+    </ModeChanger>
   );
 };
 

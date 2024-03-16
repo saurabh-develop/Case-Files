@@ -15,8 +15,19 @@ import { API, uploadFile } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
 import JoditEditor from "jodit-react";
 
+const ModeChanger = styled(Box)`
+  .dark {
+    background-color: #1b1c1e;
+  }
+  .light {
+    background-color: #f0f0f0;
+  }
+`;
+
+const Wrapper = styled(Box)``;
+
 const Container = styled(Box)(({ theme }) => ({
-  margin: "50px 100px",
+  margin: "50px 100px 0px 100px",
   [theme.breakpoints.down("md")]: {
     margin: 0,
   },
@@ -66,7 +77,7 @@ const Update = () => {
 
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState("");
-  const { account } = useContext(DataContext);
+  const { account, darkMode } = useContext(DataContext);
   const editor = useRef(null);
 
   const url = post.picture
@@ -112,63 +123,69 @@ const Update = () => {
   };
 
   return (
-    <Container>
-      <Image src={url} alt="post" />
+    <ModeChanger>
+      <Wrapper className={darkMode === true ? "dark" : "light"}>
+        <Container>
+          <Image src={url} alt="post" />
 
-      <StyledFormControl>
-        <label htmlFor="fileInput">
-          <Add
-            fontSize="large"
-            color="action"
-            style={{ color: "#fff", cursor: "pointer" }}
-          />
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          style={{ display: "none" }}
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <InputTextField
-          value={post.title}
-          onChange={(e) => handleChange(e)}
-          name="title"
-          placeholder="Title"
-          style={{ color: "#fff" }}
-        />
-        <Button
-          onClick={() => updatePost()}
-          variant="contained"
-          color="primary"
-        >
-          Update
-        </Button>
-      </StyledFormControl>
+          <StyledFormControl>
+            <label htmlFor="fileInput">
+              <Add
+                fontSize="large"
+                color="action"
+                style={
+                  darkMode === true ? { color: "#fff" } : { color: "#333" }
+                }
+              />
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <InputTextField
+              value={post.title}
+              onChange={(e) => handleChange(e)}
+              name="title"
+              placeholder="Title"
+              style={darkMode === true ? { color: "#fff" } : { color: "#333" }}
+            />
+            <Button
+              onClick={() => updatePost()}
+              variant="contained"
+              color="primary"
+            >
+              Update
+            </Button>
+          </StyledFormControl>
 
-      {/* <Textarea
+          {/* <Textarea
                 rowsMin={5}
                 placeholder="Tell your story..."
                 value={post.description}
                 name='description'
                 onChange={(e) => handleChange(e)} 
             /> */}
-      <JoditEditor
-        ref={editor}
-        value={post.description}
-        onChange={(newContent) =>
-          setPost((prevPost) => ({ ...prevPost, description: newContent }))
-        }
-        name="description"
-        className="custom-editor"
-        style={{
-          width: "100%",
-          marginTop: "25px",
-          marginBottom: "25px",
-          border: "none",
-          padding: "10px",
-        }}
-      />
-    </Container>
+          <JoditEditor
+            ref={editor}
+            value={post.description}
+            onChange={(newContent) =>
+              setPost((prevPost) => ({ ...prevPost, description: newContent }))
+            }
+            name="description"
+            className="custom-editor"
+            style={{
+              width: "100%",
+              marginTop: "25px",
+              marginBottom: "25px",
+              border: "none",
+              padding: "10px",
+            }}
+          />
+        </Container>
+      </Wrapper>
+    </ModeChanger>
   );
 };
 

@@ -10,6 +10,8 @@ import {
 import { categories } from "../../constants/data";
 import styled from "@emotion/styled";
 import { Link, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { DataContext } from "../../context/DataProvider";
 
 const StyledTable = styled(Table)`
   border: 0px 0px 1px 0px solid rgba(224, 224, 224, 1);
@@ -22,18 +24,24 @@ const StyledButton = styled(Button)`
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #fff;
-
   margin: auto;
-
   &:hover {
     color: #1976d2;
+  }
+  .dark {
+    background-color: #1b1c1e;
+    color: #fff;
+  }
+  .light {
+    background-color: #f0f0f0;
+    color: #333;
   }
 `;
 
 const Categories = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const { darkMode } = useContext(DataContext);
 
   return (
     <>
@@ -48,7 +56,12 @@ const Categories = () => {
         <TableHead>
           <TableRow>
             <TableCell style={{ display: "flex" }}>
-              <StyledLink to="/">All Categories</StyledLink>
+              <StyledLink
+                to="/"
+                className={darkMode === true ? "dark" : "light"}
+              >
+                All Categories
+              </StyledLink>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -56,7 +69,10 @@ const Categories = () => {
           {categories.map((category) => (
             <TableRow key={category.id}>
               <TableCell style={{ display: "flex" }}>
-                <StyledLink to={`/?category=${category.type}`}>
+                <StyledLink
+                  to={`/?category=${category.type}`}
+                  className={darkMode === true ? "dark" : "light"}
+                >
                   {category.type}
                 </StyledLink>
               </TableCell>

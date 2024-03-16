@@ -12,6 +12,14 @@ import Comment from "./Comment";
 const Container = styled(Box)`
   margin-top: 100px;
   display: flex;
+  .dark {
+    background-color: #101012;
+    color: #fff;
+  }
+  .light {
+    background-color: #dad8c9;
+    color: #333;
+  }
 `;
 
 const Image = styled("img")({
@@ -45,7 +53,7 @@ const Comments = ({ post }) => {
   const [comments, setComments] = useState([]);
   const [toggle, setToggle] = useState(false);
 
-  const { account } = useContext(DataContext);
+  const { account, darkMode } = useContext(DataContext);
 
   useEffect(() => {
     const getData = async () => {
@@ -94,6 +102,7 @@ const Comments = ({ post }) => {
           placeholder="what's on your mind?"
           onChange={(e) => handleChange(e)}
           value={comment.comments}
+          className={darkMode === true ? "dark" : "light"}
         />
         <Button
           variant="contained"

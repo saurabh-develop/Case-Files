@@ -29,7 +29,7 @@ export const Posts = () => {
           <Grid item lg={3} sm={4} xs={12}>
             <Link
               to={`details/${post._id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{ textDecoration: "none", color: "#000" }}
             >
               <Post post={post} />
             </Link>
