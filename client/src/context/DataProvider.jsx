@@ -4,6 +4,7 @@ export const DataContext = createContext(null);
 
 const DataProvider = ({ children }) => {
   const [account, setAccount] = useState({ username: "", name: "" });
+  const [darkMode, setDarkMode] = useState(true);
 
   return (
     <>
@@ -11,6 +12,8 @@ const DataProvider = ({ children }) => {
         value={{
           account,
           setAccount,
+          darkMode,
+          setDarkMode,
         }}
       >
         {children}

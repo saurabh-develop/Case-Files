@@ -1,8 +1,10 @@
 import { Box, Typography, styled } from "@mui/material";
 import { addElipsis } from "../../../utils/common-utils";
+import { useContext } from "react";
+import { DataContext } from "../../../context/DataProvider";
 
 const Container = styled(Box)`
-  border: 1px solid #d3cede;
+  border: 1px solid;
   border-radius: 10px;
   margin: 10px;
   height: 350px;
@@ -11,7 +13,6 @@ const Container = styled(Box)`
   flex-direction: column;
   & > p {
     padding: 0 5px 5px 5px;
-    color: #fff;
   }
   @media only screen and (max-width: 600px) and (min-width: 400px) {
     img {
@@ -23,11 +24,19 @@ const Container = styled(Box)`
       height: 65%;
     }
   }
+  .dark {
+    background-color: #1b1c1e;
+    color: #fff;
+    border: #d3cede;
+  }
+  .light {
+    background-color: #f0f0f0;
+    color: #333;
+  }
 `;
 
 const Text = styled(Typography)`
   font-size: 12px;
-  color: #010101;
 `;
 
 const Heading = styled(Typography)`
@@ -56,13 +65,14 @@ const Image = styled("img")({
 
 const Post = ({ post }) => {
   const url = post.picture ? post.picture : "post_image.jpg";
-
+  const { darkMode } = useContext(DataContext);
   return (
-    <Container>
+    <Container className={darkMode === true ? "dark" : "light"}>
       <Image src={url} alt-="blog" />
       <Text>{post.categories}</Text>
       <Heading>{addElipsis(post.title, 10)}</Heading>
       <Text>{post.username}</Text>
+
       <Details>
         {addElipsis(
           <div dangerouslySetInnerHTML={{ __html: post.description }} />,

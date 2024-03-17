@@ -13,21 +13,30 @@ import { DataContext } from "../../context/DataProvider";
 import { API, uploadFile } from "../../service/api";
 import JoditEditor from "jodit-react";
 
+const ModeChanger = styled(Box)`
+  .dark {
+    background-color: #1b1c1e;
+    color: #fff;
+  }
+  .light {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+`;
+
 const Wrapper = styled(Box)`
   margin: 0;
   padding: 0;
-  background-color: #1b1c1e;
 `;
 
 const Container = styled(Box)`
-  margin: 0px 100px 0px 100px;
+  margin: 0px 100px;
   display: flex;
   flex-direction: column;
   .custom-editor {
     width: 100%;
     margin-top: 25px;
     margin-bottom: 25px;
-    border: none;
     padding: 10px;
   }
 `;
@@ -55,7 +64,6 @@ const InputTextField = styled(InputBase)`
   font-size: 20px;
   border-bottom: 1px solid #101010;
   padding: 0 10px;
-  border-radius: 5px;
   @media only screen and (max-width: 600px) {
     margin: 10px 20px;
   }
@@ -93,10 +101,7 @@ const CreatePost = () => {
   const [file, setFile] = useState("");
   const navigate = useNavigate();
   const editor = useRef(null);
-  const [content, setContent] = useState("");
-
-  const { account } = useContext(DataContext);
-
+  const { account, darkMode } = useContext(DataContext);
   const location = useLocation();
 
   const url = post.picture ? post.picture : "createpost_image1.jpg";
@@ -131,52 +136,62 @@ const CreatePost = () => {
 
   return (
     <>
-      <Wrapper>
-        <Container>
-          <Image src={url} alt="post" />
+      <ModeChanger>
+        <Wrapper className={darkMode === true ? "dark" : "light"}>
+          <Container>
+            <Image src={url} alt="post" />
 
-          <StyledFormControl>
-            <label htmlFor="fileInput">
-              <Add
-                fontSize="large"
-                style={{ color: "#fff", cursor: "pointer" }}
-                className="addIcon"
+            <StyledFormControl>
+              <label htmlFor="fileInput">
+                <Add
+                  fontSize="large"
+                  style={{ cursor: "pointer" }}
+                  className={darkMode === true ? "dark" : "light"}
+                />
+              </label>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={(e) => setFile(e.target.files[0])}
               />
-            </label>
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
 
-            <InputTextField
-              placeholder="Title"
-              onChange={(e) => onHandleChange(e)}
-              name="title"
-              style={{ color: "#fff" }}
-            />
-            <Button variant="contained" onClick={() => savePost()}>
-              Publish
-            </Button>
-          </StyledFormControl>
-          {/* <TextArea
+              <InputTextField
+                placeholder="Title"
+                onChange={(e) => onHandleChange(e)}
+                name="title"
+                className={darkMode === true ? "dark" : "light"}
+              />
+              <Button variant="contained" onClick={() => savePost()}>
+                Publish
+              </Button>
+            </StyledFormControl>
+            {/* <TextArea
             minRows={5}
             placeholder="Tell your story..."
             onChange={(e) => onHandleChange(e)}
             name="description"
           /> */}
-          <JoditEditor
-            ref={editor}
-            value={post.description}
-            onChange={(newContent) =>
-              setPost((prevPost) => ({ ...prevPost, description: newContent }))
-            }
-            name="description"
-            className="custom-editor"
-          />
-        </Container>
-      </Wrapper>
+            <JoditEditor
+              ref={editor}
+              value={post.description}
+              onChange={(newContent) =>
+                setPost((prevPost) => ({
+                  ...prevPost,
+                  description: newContent,
+                }))
+              }
+              name="description"
+              className="custom-editor"
+              style={
+                darkMode === false
+                  ? { border: "1px solid #000" }
+                  : { border: "none" }
+              }
+            />
+          </Container>
+        </Wrapper>
+      </ModeChanger>
     </>
   );
 };

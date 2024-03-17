@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AppBar, Toolbar, Typography, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ViewHeadlineIcon from "@mui/icons-material/ViewHeadline";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { DataContext } from "../../context/DataProvider";
 import { Search } from "../home/post/Search";
 
 const Component = styled(AppBar)`
@@ -52,6 +55,12 @@ const Container = styled(Toolbar)`
       width: 100%;
     }
   }
+  .darkInactive {
+    display: none;
+  }
+  .lightInactive {
+    display: none;
+  }
 `;
 
 const onHandleClick = () => {
@@ -62,10 +71,16 @@ const onHandleClick = () => {
 const Header = () => {
   const [showNav, setShowNav] = useState("inactive");
   const navigate = useNavigate();
+  const { darkMode, setDarkMode } = useContext(DataContext);
 
   const onToggleChange = () => {
     showNav === "inactive" ? setShowNav("active") : setShowNav("inactive");
   };
+
+  const toggleMode = () => {
+    darkMode === true ? setDarkMode(false) : setDarkMode(true);
+  };
+
   return (
     <>
       <Component>
@@ -93,6 +108,14 @@ const Header = () => {
             className="navIcon "
             onClick={() => onToggleChange()}
             style={{ margin: "10px" }}
+          />
+          <DarkModeIcon
+            onClick={() => toggleMode()}
+            className={darkMode === true ? "darkActive" : "darkInactive"}
+          />
+          <LightModeIcon
+            onClick={() => toggleMode()}
+            className={darkMode === false ? "lightActive" : "lightInactive"}
           />
         </Container>
       </Component>

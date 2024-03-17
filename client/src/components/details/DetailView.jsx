@@ -4,12 +4,28 @@ import { useEffect, useState, useContext } from "react";
 import { API } from "../../service/api";
 import { Edit, Delete } from "@mui/icons-material";
 import { DataContext } from "../../context/DataProvider";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import XIcon from "@mui/icons-material/X";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 //components
 import Comments from "./comments/Comments";
 
+const ModeChanger = styled(Box)`
+  .dark {
+    background-color: #1b1c1e;
+    color: #fff;
+  }
+  .light {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+`;
+
+const Wrapper = styled(Box)``;
+
 const Container = styled(Box)(({ theme }) => ({
-  margin: " 50px 100px",
+  margin: " 50px 100px 0px 100px",
   [theme.breakpoints.down("md")]: {
     margin: 0,
   },
@@ -87,6 +103,7 @@ const DetailView = () => {
 
   const { id } = useParams();
   const { account } = useContext(DataContext);
+  const { darkMode } = useContext(DataContext);
 
   const url = post.picture
     ? post.picture
@@ -110,40 +127,106 @@ const DetailView = () => {
       navigate("/");
     }
   };
+
+  const postUrl = window.location.href;
+  const handleShareFacebook = () => {
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        postUrl
+      )}`,
+      "_blank"
+    );
+  };
+  const handleShareTwitter = () => {
+    window.open(
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}`,
+      "_blank"
+    );
+  };
+  const handleShareWhatsApp = () => {
+    window.open(
+      `https://api.whatsapp.com/send?text=${encodeURIComponent(postUrl)}`,
+      "_blank"
+    );
+  };
+
   return (
-    <Container>
-      <Image src={url} alt="blog" />
-      <PostContent>
-        <Box style={{ float: "right", marginRight: "10px" }}>
-          {account.username === post.username && (
-            <>
-              <Link to={`/update/${post._id}`}>
-                <EditIcon color="primary" />
-              </Link>
-              <DeleteIcon onClick={() => deleteBlog()} color="error" />
-            </>
-          )}
-        </Box>
+    <>
+      <ModeChanger>
+        <Wrapper className={darkMode === true ? "dark" : "light"}>
+          <Container>
+            <Image src={url} alt="blog" />
+            <FacebookIcon
+              onClick={() => handleShareFacebook()}
+              style={{ cursor: "pointer" }}
+              className={darkMode === true ? "dark" : "light"}
+            />
+            <XIcon
+              onClick={() => handleShareTwitter()}
+              style={{ cursor: "pointer" }}
+              className={darkMode === true ? "dark" : "light"}
+            />
+            <WhatsAppIcon
+              onClick={() => handleShareWhatsApp()}
+              style={{ cursor: "pointer" }}
+              className={darkMode === true ? "dark" : "light"}
+            />
+            <PostContent
+              className={darkMode === true ? "dark" : "light"}
+              style={
+                darkMode === false
+                  ? { border: "1px solid #000" }
+                  : { background: "#101012" }
+              }
+            >
+              <Box style={{ float: "right", marginRight: "10px" }}>
+                {account.username === post.username && (
+                  <>
+                    <Link to={`/update/${post._id}`}>
+                      <EditIcon color="primary" />
+                    </Link>
+                    <DeleteIcon onClick={() => deleteBlog()} color="error" />
+                  </>
+                )}
+              </Box>
 
-        <Heading>{post.title}</Heading>
-        <Author>
-          <Typography>
-            Author:
-            <Box component="span" style={{ fontWeight: 600 }}>
-              {` ${post.username}`}
-            </Box>
-          </Typography>
-          <Typography style={{ marginLeft: "auto" }}>
-            {new Date(post.createdDate).toDateString()}
-          </Typography>
-        </Author>
+              <Heading
+                style={
+                  darkMode === true ? { color: "#fff" } : { color: "#333" }
+                }
+              >
+                {post.title}
+              </Heading>
+              <Author
+                style={
+                  darkMode === true ? { color: "#fff" } : { color: "#333" }
+                }
+              >
+                <Typography>
+                  Author:
+                  <Box component="span" style={{ fontWeight: 600 }}>
+                    {` ${post.username}`}
+                  </Box>
+                </Typography>
+                <Typography style={{ marginLeft: "auto" }}>
+                  {new Date(post.createdDate).toDateString()}
+                </Typography>
+              </Author>
 
-        <Description className="desc">
-          <div dangerouslySetInnerHTML={{ __html: post.description }} />
-        </Description>
-      </PostContent>
-      <Comments post={post} />
-    </Container>
+              <Description
+                className="desc"
+                style={
+                  darkMode === true ? { color: "#fff" } : { color: "#333" }
+                }
+              >
+                <div dangerouslySetInnerHTML={{ __html: post.description }} />
+              </Description>
+            </PostContent>
+            <Comments post={post} />
+          </Container>
+        </Wrapper>
+      </ModeChanger>
+    </>
   );
 };
 
