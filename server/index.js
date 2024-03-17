@@ -27,3 +27,6 @@ const PASSWORD = process.env.DB_PASSWORD;
 
 
 Connection(USERNAME,PASSWORD);
+
+
+// "mongoose": "^8.2.1",

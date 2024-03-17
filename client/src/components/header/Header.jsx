@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ViewHeadlineIcon from "@mui/icons-material/ViewHeadline";
+import { Search } from "../home/post/Search";
 
 const Component = styled(AppBar)`
   background: #1b1c1e;
@@ -87,6 +88,7 @@ const Header = () => {
           >
             LOGOUT
           </Link>
+          <Search/>
           <ViewHeadlineIcon
             className="navIcon "
             onClick={() => onToggleChange()}

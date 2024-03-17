@@ -34,6 +34,7 @@ const StyledLink = styled(Link)`
 const Categories = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const search = searchParams.get("posts");
 
   return (
     <>

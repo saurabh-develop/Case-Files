@@ -73,7 +73,7 @@ const Update = () => {
 
         }
         fetchData();
-    }, [])
+    }, [id])
     
     useEffect(() => {
         const getImage = async () => { 
