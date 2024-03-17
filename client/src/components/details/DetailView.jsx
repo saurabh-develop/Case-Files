@@ -7,6 +7,7 @@ import { DataContext } from "../../context/DataProvider";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import XIcon from "@mui/icons-material/X";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import Likes from "./comments/likes/Likes";
 
 //components
 import Comments from "./comments/Comments";
@@ -156,6 +157,7 @@ const DetailView = () => {
         <Wrapper className={darkMode === true ? "dark" : "light"}>
           <Container>
             <Image src={url} alt="blog" />
+            <Likes post={post}/>
             <FacebookIcon
               onClick={() => handleShareFacebook()}
               style={{ cursor: "pointer" }}

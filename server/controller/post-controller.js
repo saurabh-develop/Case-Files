@@ -89,4 +89,14 @@ export const searchPosts = async (request, response) => {
   }
 };
 
+export const addLikes = async (request, response) => {
+  try {
+       
+
+    return response.status(200).json("Post Liked successfully");
+  } catch (error) {
+    return response.status(500).json(error);
+  }
+};
+
 

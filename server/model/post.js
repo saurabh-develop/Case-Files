@@ -24,7 +24,14 @@ const PostSchema = mongoose.Schema({
     },
     createdDate: {
         type: Date
+    },
+    likes:{
+        type: Number, default: 0 
+    },
+    views:{
+         type: Number, default: 0 
     }
+
 });
 
 
