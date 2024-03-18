@@ -157,7 +157,7 @@ const DetailView = () => {
         <Wrapper className={darkMode === true ? "dark" : "light"}>
           <Container>
             <Image src={url} alt="blog" />
-            <Likes post={post}/>
+            <Likes post={post} />
             <FacebookIcon
               onClick={() => handleShareFacebook()}
               style={{ cursor: "pointer" }}
