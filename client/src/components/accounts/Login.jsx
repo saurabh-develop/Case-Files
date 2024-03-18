@@ -1,23 +1,46 @@
 import React, { useEffect } from "react";
 import { useState, useContext } from "react";
-import { Box, Button, TextField, Typography, styled } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  dialogActionsClasses,
+  styled,
+} from "@mui/material";
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled(Box)`
-  padding: 100px;
-  background-image: url("login-background-4.jpeg");
+  min-height: 100vh;
+  width: 100%;
+  background: url("loginpage5.jpg");
+  background-position: top;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 41% 96%;
+  background-size: cover;
   display: flex;
-  margin: auto;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Component = styled(Box)`
+  height: 500px;
   width: 400px;
-  margin: auto;
+  background-color: rgba(225, 225, 225, 0.1);
+  border: 1px solid #101010;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+`;
+
+const Details = styled(Box)`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 4%;
 `;
 
 const Image = styled("img")({
@@ -27,7 +50,7 @@ const Image = styled("img")({
 });
 
 const Wrapper = styled(Box)`
-  padding: 25px 35px;
+  padding: 15px 35px;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -35,7 +58,7 @@ const Wrapper = styled(Box)`
   & > div,
   & > button,
   & > p {
-    margin-top: 20px;
+    margin-top: 15px;
   }
 `;
 
@@ -160,14 +183,14 @@ const Login = ({ isUserAuthenticated }) => {
     <>
       <Container>
         <Component>
-          <Box>
+          <Details>
             <Image
               src={imageURL}
               alt="sherlock-holmes-high-resolution-logo-transparent"
               border="0"
             />
             {account === "login" ? (
-              <Wrapper>
+              <Wrapper className="loginPage">
                 <TextField
                   label="Enter username"
                   onChange={(e) => onValueChange(e)}
@@ -212,7 +235,7 @@ const Login = ({ isUserAuthenticated }) => {
                 </SignupButton>
               </Wrapper>
             ) : (
-              <Wrapper>
+              <Wrapper className="signUpPage">
                 <TextField
                   label="Enter Name"
                   onChange={(e) => onInputChange(e)}
@@ -270,7 +293,7 @@ const Login = ({ isUserAuthenticated }) => {
                 </LoginButton>
               </Wrapper>
             )}
-          </Box>
+          </Details>
         </Component>
       </Container>
     </>
