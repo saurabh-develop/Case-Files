@@ -5,7 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 
 const Likes = ({ post }) => {
-  const [like, setLike] = useState(3);
+  const [like, setLike] = useState(0);
   const [isLike, setIsLike] = useState(false);
 
   const onLikeButtonClick = () => {
