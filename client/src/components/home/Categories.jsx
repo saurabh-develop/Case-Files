@@ -42,6 +42,7 @@ const Categories = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
   const { darkMode } = useContext(DataContext);
+  const search = searchParams.get("posts");
 
   return (
     <>

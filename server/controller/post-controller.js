@@ -28,6 +28,7 @@ export const getAllPosts = async (request, response) => {
   }
 };
 
+
 export const getPost = async (request, response) => {
   try {
     const post = await Post.findById(request.params.id);
@@ -64,3 +65,38 @@ export const deletePost = async (request, response) => {
     return response.status(500).json({ error: error.message });
   }
 };
+
+
+
+
+
+
+export const searchPosts = async (request, response) => {
+  try {
+    const query = request.query.q;
+    let posts;
+
+    if (query) {
+      posts = await Post.find({ $text: { $search: query } });
+    } 
+    // else {
+    //   posts = await Post.find({});
+    // }
+
+    return response.status(200).json(posts);
+  } catch (error) {
+    return response.status(500).json({ msg: error.message });
+  }
+};
+
+export const addLikes = async (request, response) => {
+  try {
+       
+
+    return response.status(200).json("Post Liked successfully");
+  } catch (error) {
+    return response.status(500).json(error);
+  }
+};
+
+

@@ -6,6 +6,7 @@ import ViewHeadlineIcon from "@mui/icons-material/ViewHeadline";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { DataContext } from "../../context/DataProvider";
+import { Search } from "../home/post/Search";
 
 const Component = styled(AppBar)`
   background: #1b1c1e;
@@ -102,6 +103,7 @@ const Header = () => {
           >
             LOGOUT
           </Link>
+          <Search/>
           <ViewHeadlineIcon
             className="navIcon "
             onClick={() => onToggleChange()}

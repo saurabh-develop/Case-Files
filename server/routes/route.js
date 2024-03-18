@@ -1,10 +1,10 @@
 import express from "express";
-import { signupUser, loginUser } from "../controller/usercontol.js";
+import { signupUser, loginUser, getAllUsers, getUser, followUser } from "../controller/usercontol.js";
 import { uploadImage, getImage } from "../controller/image-controller.js";
 import { authenticateToken } from "../controller/jwt-controller.js";
 import {
   createPost,
-  getAllPosts,
+  getAllPosts,searchPosts,
   getPost,
   updatePost,
   deletePost,
@@ -28,6 +28,7 @@ router.get("file/:filename", getImage);
 router.post("/create", authenticateToken, createPost);
 router.get("/posts", authenticateToken, getAllPosts);
 router.get("/post/:id", authenticateToken, getPost);
+router.post('/search', searchPosts);
 
 router.put("/update/:id", authenticateToken, updatePost);
 router.delete("/delete/:id", authenticateToken, deletePost);

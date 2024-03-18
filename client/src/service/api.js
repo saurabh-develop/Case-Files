@@ -84,6 +84,8 @@ const processError = (error) => {
 }
 
 
+  
+
 export const uploadFile = async (data) => {
     try {
         const response = await axios.post(`${API_URL}/file/upload`, data);
@@ -94,8 +96,48 @@ export const uploadFile = async (data) => {
 }
 
 
+// user features
+export const getAllUsers = async () => {
+    try {
+        return await axios.get(`${API_URL}/users`);
+    } catch (error) {
+        console.log('Error while calling getAllUsers API ', error);
+        return error.response;
+    }
+}
+
+export const getUserByUsername = async (data) => {
+    try {
+        let user = await axios.post(`${API_URL}/user`, data);
+        return user.data;
+    } catch (error) {
+        console.log('Error while calling  getUser API ', error);
+        return error.response;
+    }
+}
+
+export const followUser = async (data) => {
+    try {
+        return await axios.post(`${API_URL}/follow`, data);
+    } catch (error) {
+        console.log('Error while calling login User API ', error);
+        return error.response;
+    }
+}
+
+export const searchPosts = async (data) => {
+    try {
+        let search = await axios.post(`${API_URL}/search`, data);
+        return search.data;
+    } catch (error) {
+        console.log('Error while calling  getUser API ', error);
+        return error.response;
+    }
+}
+
 
 const API = {
+
 
 };
 
