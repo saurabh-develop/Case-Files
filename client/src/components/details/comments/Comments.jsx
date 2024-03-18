@@ -73,10 +73,10 @@ const Comments = ({ post }) => {
       comments: e.target.value,
     });
   };
-
   const filterComments = (comments) => {
     const filteredComments = comments.filter((comment) => {
-      const forbiddenWords = ["mc", "fuck"]; // List of forbidden words
+      const forbiddenWords = ["mc", "fuck","bc","bsdk","madharchod", "bhadwe", "bhadwa", "chutiya", "chutiye" ,"chutiyo","behenchod","bahenchod","madherchod",
+       "bhosdiwale", "gandu", "lawde", "lode", "lund" , "gand", "lodu","chod"]; // List of forbidden words
       return !forbiddenWords.some((word) =>
         comment.comments.toLowerCase().includes(word)
       );
